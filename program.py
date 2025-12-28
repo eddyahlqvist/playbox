@@ -1,13 +1,15 @@
 # program.py
 
 from collections.abc import Callable
+import time
+
 from .system_commands import SystemCommand
-from .ui import handle_user_input
+from .ui import handle_user_input, warning
 from .toolboxes.dice import DiceToolbox
 from .toolboxes.cards import CardsToolbox
 from .toolboxes.calculator import CalculatorToolbox
 from .toolboxes.journal import JournalToolbox
-import time
+from .toolboxes.counters import CountersToolbox
 
 MenuAction = Callable[[], SystemCommand | None]
 
@@ -18,12 +20,14 @@ class Program:
         self._cards = CardsToolbox()
         self._calc = CalculatorToolbox()
         self._journal = JournalToolbox()
+        self._counters = CountersToolbox()
 
         self._menu_actions: dict[str, tuple[str, MenuAction]] = {
             "1": ("Dice", self._dice.run),
             "2": ("Cards", self._cards.run),
             "3": ("Calculator", self._calc.run),
             "4": ("Journal", self._journal.run),
+            "5": ("Counters", self._counters.run),
         }
 
     def run(self) -> None:
@@ -40,7 +44,7 @@ class Program:
                 return
 
             if isinstance(choice, SystemCommand):
-                print("Internal error: unexpected command.")
+                warning("Internal error: unexpected command.")
                 continue
 
             _label, func = self._menu_actions[choice]

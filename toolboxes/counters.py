@@ -1,13 +1,13 @@
-# dice.py
+# counters.py
 
 from ..system_commands import SystemCommand
 from ..ui import info
 from .base_menu_toolbox import BaseMenuToolbox
 
-class DiceToolbox(BaseMenuToolbox):
+class CountersToolbox(BaseMenuToolbox):
     def __init__(self) -> None:
         super().__init__(
-            "Dice",
+            "Counters",
             {
                 "1": ("Placeholder 1", self._placeholder_1),
                 "2": ("Placeholder 2", self._placeholder_2),
