@@ -7,3 +7,8 @@ __pycache__/
 
 # Virtual environments
 .venv/
+
+# Playbox data
+*.json
+
+data/
